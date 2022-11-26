@@ -39,12 +39,13 @@ class AirplaneSeating:
                 layout[i][j][0] = "Aisle"
                 layout[i][j][-1] = "Aisle"
 
-                print(i)
+                #print(i,len(layout))
 
                 if i==0:
-                    layout[0][j][i] = "Windows"
-                if i==len(layout):
-                    layout[-1][j][i] = "Windows"
+                    layout[0][j][0] = "Windows"
+                if i==len(layout)-1:
+                    #print("\n",j,"|||||||||")
+                    layout[-1][j][-1] = "Windows"
 
         return layout
 
