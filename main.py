@@ -1,6 +1,8 @@
 class AirplaneSeating:
     """
-    Write here
+    It helps seat audiences in a flight by seating passengers starting from the
+    front row to the back, starting from the left to the right, and filling
+    the aisle seats first, followed by window seats, followed by centre seats.
     """
 
     def __init__(self, nested_arr, passengers):
@@ -29,6 +31,10 @@ class AirplaneSeating:
             raise ValueError("Passengers cannot be negative")
 
     def build_layout(self):
+        """
+        Builds the layout of the flight from the input array by initializing
+        matrix with -1.
+        """
         layout = []
         # Create a matrix from the nested array
         for arr in self.nested_arr:
@@ -43,7 +49,7 @@ class AirplaneSeating:
         return layout
 
     def assign_aisle_seats(self, layout):
-
+        """Assigns the aisle seats to the passengers."""
         for i in range(len(layout)):
             # Parse through the nested list
             for j in range(len(layout[i])):
@@ -62,7 +68,7 @@ class AirplaneSeating:
         return layout
 
     def assign_window_seats(self, layout):
-
+        """Assigns the window seats to the passengers."""
         for i in range(len(layout)):
             # Parse through the nested list
             for j in range(len(layout[i])):
@@ -81,7 +87,7 @@ class AirplaneSeating:
         return layout
 
     def assign_middle_seats(self, layout):
-
+        """Assigns the middle seats to the passengers."""
         for i in range(len(layout)):
             # Parse through the nested list
             for j in range(len(layout[i])):
@@ -98,7 +104,7 @@ class AirplaneSeating:
 
 
 def main(input_array, input_passengers):
-    """Function to run the program"""
+    """Function to run the program."""
     airplane_class = AirplaneSeating(input_array, input_passengers)
     layout_func = airplane_class.build_layout()
     aisle_func = airplane_class.assign_aisle_seats(layout_func)
