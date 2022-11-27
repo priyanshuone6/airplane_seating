@@ -21,7 +21,45 @@ class AirplaneSeating:
 
         return layout
 
-    def assign_seats(self, layout):
+    def assign_aisle_seats(self, layout):
+
+        self.seat_number = 1
+
+        for i in range(len(layout)):
+            # Parse through the nested list
+            for j in range(len(layout[i])):
+
+                # Set the first and last elements to a aisle seat
+                layout[i][j][0] = f"{self.seat_number} Aisle"
+                self.seat_number += 1
+                layout[i][j][-1] = f"{self.seat_number} Aisle"
+                self.seat_number += 1
+
+                if self.seat_number == self.passengers:
+                    break
+
+        return layout
+
+    def assign_window_seats(self, layout):
+
+        for i in range(len(layout)):
+            # Parse through the nested list
+            for j in range(len(layout[i])):
+
+                # Override the first and last element of the nested list to a window seat
+                if i == 0:
+                    layout[0][j][0] = f"{self.seat_number} Window"
+                    self.seat_number += 1
+                if i == len(layout) - 1:
+                    layout[-1][j][-1] = f"{self.seat_number} Window"
+                    self.seat_number += 1
+
+                if self.seat_number == self.passengers:
+                    break
+
+        return layout
+
+    def assign_middle_seats(self, layout):
 
         for i in range(len(layout)):
             # Parse through the nested list
@@ -29,32 +67,28 @@ class AirplaneSeating:
 
                 # Set the elements between the index 0 and -1 to a middle seat
                 for k in range(1, len(layout[i][j]) - 1):
-                    layout[i][j][k] = "Middle"
+                    layout[i][j][k] = f"{self.seat_number} Middle"
+                    self.seat_number += 1
 
-                # Set the first and last elements to a aisle seat
-                layout[i][j][0] = "Aisle"
-                layout[i][j][-1] = "Aisle"
-
-                # Override the first and last element of the nested list to a window seat
-                if i == 0:
-                    layout[0][j][0] = "Window"
-                if i == len(layout) - 1:
-                    layout[-1][j][-1] = "Window"
+                    if self.seat_number == self.passengers:
+                        break
 
         return layout
 
-    #def assign_seat_number(self, layout):
-    #   for seat in layout[0]:
-    #       print(seat)
+
+def main(input_array, input_passengers):
+    """Function to run the program"""
+    airplane_class = AirplaneSeating(input_array, input_passengers)
+    layout_func = airplane_class.build_layout()
+    aisle_func = airplane_class.assign_aisle_seats(layout_func)
+    window_func = airplane_class.assign_window_seats(aisle_func)
+    middle_func = airplane_class.assign_middle_seats(window_func)
+
+    return middle_func
 
 
 if __name__ == "__main__":
     input_array = [[3, 2], [4, 3], [2, 3], [3, 4]]
     input_passengers = 30
 
-    airplane_class = AirplaneSeating(input_array, input_passengers)
-    layout_func = airplane_class.build_layout()
-    seats_func = airplane_class.assign_seats(layout_func)
-    #seat_num_func = airplane_class.assign_seat_number(seats_func)
-
-    print(seats_func)
+    print(main(input_array, input_passengers))
