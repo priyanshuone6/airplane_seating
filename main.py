@@ -7,6 +7,24 @@ class AirplaneSeating:
         self.nested_arr = nested_arr
         self.passengers = passengers
 
+        # Raise an error if the array or passengers is empty
+        if not self.nested_arr:
+            raise ValueError("Array cannot be empty")
+        if not self.passengers:
+            raise ValueError("Passengers cannot be empty")
+
+        # Raise an error if array is not a sequence
+        if not hasattr(self.nested_arr, "__len__"):
+            raise TypeError("Array must be a sequence")
+
+        # Raise an error if passengers is not an integer
+        if not isinstance(self.passengers, int):
+            raise TypeError("Passengers must be an integer")
+
+        # Raise an error if passengers are negative
+        if self.passengers < 0:
+            raise ValueError("Passengers cannot be negative")
+
     def build_layout(self):
         layout = []
         # Create a matrix from the nested array
