@@ -11,8 +11,7 @@ class AirplaneSeating:
         layout = []
         # Create a matrix from the nested array
         for arr in self.nested_arr:
-            cols = arr[0]
-            rows = arr[1]
+            cols, rows = arr
 
             # Initialize the matrix with -1
             matrix = []
@@ -44,9 +43,9 @@ class AirplaneSeating:
 
         return layout
 
-    # def assign_seat_number(self, layout):
-    #    for seat in layout[0]:
-    #        print(seat)
+    #def assign_seat_number(self, layout):
+    #   for seat in layout[0]:
+    #       print(seat)
 
 
 if __name__ == "__main__":
@@ -56,6 +55,6 @@ if __name__ == "__main__":
     airplane_class = AirplaneSeating(input_array, input_passengers)
     layout_func = airplane_class.build_layout()
     seats_func = airplane_class.assign_seats(layout_func)
-    seat_num_func = airplane_class.assign_seat_number(seats_func)
+    #seat_num_func = airplane_class.assign_seat_number(seats_func)
 
-    print(seat_num_func)
+    print(seats_func)
