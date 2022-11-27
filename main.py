@@ -6,6 +6,8 @@ class AirplaneSeating:
     def __init__(self, nested_arr, passengers):
         self.nested_arr = nested_arr
         self.passengers = passengers
+
+        # Initialize the seat number
         self.seat_number = 1
 
         # Raise an error if the array or passengers is empty
@@ -46,8 +48,9 @@ class AirplaneSeating:
             # Parse through the nested list
             for j in range(len(layout[i])):
 
-                # Set the first and last elements to a aisle seat
+                # Skip window seats
                 if not (i == 0 and i == 1):
+                    # Set first and last elements of sub list to a aisle seat
                     layout[i][j][0] = f"{self.seat_number} Aisle"
                     self.seat_number += 1
                     layout[i][j][-1] = f"{self.seat_number} Aisle"
@@ -64,7 +67,7 @@ class AirplaneSeating:
             # Parse through the nested list
             for j in range(len(layout[i])):
 
-                # Override the first and last element of the nested list to a window seat
+                # Set first and last element of the nested list to a window seat
                 if i == 0:
                     layout[0][j][0] = f"{self.seat_number} Window"
                     self.seat_number += 1
