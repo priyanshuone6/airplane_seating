@@ -91,7 +91,6 @@ class AirplaneSeating:
         for i in range(len(layout)):
             # Parse through the nested list
             for j in range(len(layout[i])):
-
                 # Set the elements between the index 0 and -1 to a middle seat
                 for k in range(1, len(layout[i][j]) - 1):
                     layout[i][j][k] = f"{self.seat_number} Middle"
