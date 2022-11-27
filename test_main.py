@@ -3,7 +3,7 @@
 #
 import unittest
 
-from .main import AirplaneSeating
+import main
 
 
 class TestAirplaneSeating(unittest.TestCase):
@@ -11,23 +11,23 @@ class TestAirplaneSeating(unittest.TestCase):
 
         # Check if the passenger input is not an integer
         with self.assertRaises(TypeError):
-            AirplaneSeating([1, 2, 3], "volopay")
+            main.AirplaneSeating([1, 2, 3], "volopay")
 
         # Check if the passenger input is negative integer
         with self.assertRaises(ValueError):
-            AirplaneSeating([1, 2, 3], -1)
+            main.AirplaneSeating([1, 2, 3], -1)
 
         # Check if the passenger input is empty
         with self.assertRaises(ValueError):
-            AirplaneSeating([1, 2, 3], None)
+            main.AirplaneSeating([1, 2, 3], None)
 
         # Check if the array input is empty
         with self.assertRaises(ValueError):
-            AirplaneSeating([], 20)
+            main.AirplaneSeating([], 20)
 
         # Check if the array input is a sequence
         with self.assertRaises(TypeError):
-            AirplaneSeating(10, 20)
+            main.AirplaneSeating(10, 20)
 
 
 if __name__ == "__main__":
