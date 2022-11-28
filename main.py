@@ -43,7 +43,7 @@ class Airplane:
             row_str = []
             for arr in self.layout:
                 if row_idx < len(arr):
-                    arr_row = [f'{num:<{indent}}' for num in arr[row_idx]]
+                    arr_row = [f'{num:>{indent}}' for num in arr[row_idx]]
                 else:
                     arr_row = [' ' * indent for _ in range(len(arr[0]))]
                 row_str.append(' '.join(arr_row))
