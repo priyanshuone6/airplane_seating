@@ -13,7 +13,7 @@ python main.py
 ## 🚧 How to run tests
 This project uses `unittest` for testing. To run the tests, run the following command in the terminal:
 ```bash
-python -m unittest
+python -m unittest test_main.py
 ```
 
 ## 💻 Example input:
