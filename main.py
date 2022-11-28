@@ -1,34 +1,34 @@
-class AirplaneSeating:
+class Airplane:
     """
     It helps seat audiences in a flight by seating passengers starting from the
     front row to the back, starting from the left to the right, and filling
     the aisle seats first, followed by window seats, followed by centre seats.
     """
 
-    def __init__(self, nested_arr, passengers):
-        self.nested_arr = nested_arr
-        self.passengers = passengers
+    def __init__(self, dims, num_passengers):
+        self.dims = dims
+        self.num_passengers = num_passengers
         self.layout = []
 
         # Initialize the seat number
         self.seat_number = 1
 
         # Raise an error if the array or passengers is empty
-        if not self.nested_arr:
+        if not self.dims:
             raise ValueError("Array cannot be empty")
-        if not self.passengers:
+        if not self.num_passengers:
             raise ValueError("Passengers cannot be empty")
 
-        # Raise an error if array is not a sequence
-        if not hasattr(self.nested_arr, "__len__"):
-            raise TypeError("Array must be a sequence")
+        # Raise an error if array is not a list
+        if not isinstance(self.dims, list):
+            raise TypeError("Given dimensions must be a list")
 
         # Raise an error if passengers is not an integer
-        if not isinstance(self.passengers, int):
+        if not isinstance(self.num_passengers, int):
             raise TypeError("Passengers must be an integer")
 
         # Raise an error if passengers are negative
-        if self.passengers < 0:
+        if self.num_passengers < 0:
             raise ValueError("Passengers cannot be negative")
 
     def build_layout(self):
@@ -37,7 +37,7 @@ class AirplaneSeating:
         matrix with -1.
         """
         # Create a matrix from the nested array
-        for arr in self.nested_arr:
+        for arr in self.dims:
             cols, rows = arr
 
             # Initialize the matrix with -1
@@ -62,7 +62,7 @@ class AirplaneSeating:
                     self.layout[i][j][-1] = f"{self.seat_number} Aisle"
                     self.seat_number += 1
 
-                    if self.seat_number == self.passengers:
+                    if self.seat_number == self.num_passengers:
                         break
 
     def assign_window_seats(self):
@@ -79,7 +79,7 @@ class AirplaneSeating:
                     self.layout[-1][j][-1] = f"{self.seat_number} Window"
                     self.seat_number += 1
 
-                if self.seat_number == self.passengers:
+                if self.seat_number == self.num_passengers:
                     break
 
     def assign_middle_seats(self):
@@ -92,20 +92,18 @@ class AirplaneSeating:
                     self.layout[i][j][k] = f"{self.seat_number} Middle"
                     self.seat_number += 1
 
-                    if self.seat_number == self.passengers:
+                    if self.seat_number == self.num_passengers:
                         break
 
 
 def main(input_array, input_passengers):
     """Function to run the program."""
-    airplane_class = AirplaneSeating(input_array, input_passengers)
-    layout_func = airplane_class.build_layout()
-    aisle_func = airplane_class.assign_aisle_seats()
-    window_func = airplane_class.assign_window_seats()
-    middle_func = airplane_class.assign_middle_seats()
-
-    return middle_func
-
+    airplane = Airplane(input_array, input_passengers)
+    airplane.build_layout()
+    airplane.assign_aisle_seats()
+    airplane.assign_window_seats()
+    airplane.assign_middle_seats()
+    return airplane
 
 if __name__ == "__main__":
     input_array = [[3, 2], [4, 3], [2, 3], [3, 4]]
