@@ -82,9 +82,9 @@ class Airplane:
                 # Skip window seats
                 if not (i == 0 and i == 1):
                     # Set first and last elements of sub list to a aisle seat
-                    self.layout[i][j][0] = f"{self.seat_number} Aisle"
+                    self.layout[i][j][0] = self.seat_number
                     self.seat_number += 1
-                    self.layout[i][j][-1] = f"{self.seat_number} Aisle"
+                    self.layout[i][j][-1] = self.seat_number
                     self.seat_number += 1
 
                     if self.seat_number == self.num_passengers:
@@ -98,10 +98,10 @@ class Airplane:
 
                 # Set first and last element of the nested list to a window seat
                 if i == 0:
-                    self.layout[0][j][0] = f"{self.seat_number} Window"
+                    self.layout[0][j][0] = self.seat_number
                     self.seat_number += 1
                 if i == len(self.layout) - 1:
-                    self.layout[-1][j][-1] = f"{self.seat_number} Window"
+                    self.layout[-1][j][-1] = self.seat_number
                     self.seat_number += 1
 
                 if self.seat_number == self.num_passengers:
@@ -114,7 +114,7 @@ class Airplane:
             for j in range(len(self.layout[i])):
                 # Set the elements between the index 0 and -1 to a middle seat
                 for k in range(1, len(self.layout[i][j]) - 1):
-                    self.layout[i][j][k] = f"{self.seat_number} Middle"
+                    self.layout[i][j][k] = self.seat_number
                     self.seat_number += 1
 
                     if self.seat_number == self.num_passengers:
