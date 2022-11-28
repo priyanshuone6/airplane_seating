@@ -1,22 +1,22 @@
-# Airplane Seating Algorithm
+# ✈️ Airplane Seating Algorithm
 It helps seat audiences in a flight by seating passengers starting from the front row to the back, starting from the left to the right, and filling the aisle seats first, followed by window seats, followed by centre seats.
 
-## Requirements
+## 📋 Requirements
 - Python 3.6 or higher
 
-## How to run
+## 🚀 How to run
 To run the program, run the following command in the terminal:
 ```bash
 python main.py
 ```
 
-## How to run tests
+## 🚧 How to run tests
 This project uses `unittest` for testing. To run the tests, run the following command in the terminal:
 ```bash
 python -m unittest
 ```
 
-## Example input:
+## 💻 Example input:
 2D array = [[3,2], [4,3], [2,3], [3,4]]
 
 Total passengers = 30
