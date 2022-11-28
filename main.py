@@ -23,7 +23,8 @@ class Airplane:
         # Raise an error if dims is not proper
         for item in self.dims:
             if not isinstance(item, list) or len(item) != 2:
-                raise ValueError(f"Expected dims to contain arrays of length 2, got '{item}'")
+                raise ValueError(
+                    f"Expected dims to contain arrays of length 2, got '{item}'")
 
         # Raise an error if passengers is not an integer
         if not isinstance(self.num_passengers, int):
@@ -35,8 +36,8 @@ class Airplane:
 
         total_capacity = sum([dim[0] * dim[1] for dim in self.dims])
         if self.num_passengers > total_capacity:
-            raise ValueError(f"Plane doesn't have enough seats for {self.num_passengers} passengers")
-
+            raise ValueError(
+                f"Plane doesn't have enough seats for {self.num_passengers} passengers")
 
     def __str__(self):
         """Pretty print the airport layout with passengers."""
@@ -146,12 +147,19 @@ class Airplane:
                     self.passengers_seated += 1
                     seat_group[row_num][col_num] = self.passengers_seated
 
+    def fill(self):
+        """
+        Fill the airplane (first aisle, then window and finally middle seats).
+        """
+        self.assign_aisle_seats()
+        self.assign_window_seats()
+        self.assign_middle_seats()
+
+
 def main(input_array, input_passengers):
     """Function to run the program."""
     airplane = Airplane(input_array, input_passengers)
-    airplane.assign_aisle_seats()
-    airplane.assign_window_seats()
-    airplane.assign_middle_seats()
+    airplane.fill()
     return airplane
 
 
