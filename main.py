@@ -8,7 +8,7 @@ class Airplane:
     def __init__(self, dims, num_passengers):
         self.dims = dims
         self.num_passengers = num_passengers
-        self.layout = []
+        self._layout = []
 
         # Initialize the seat number
         self.seat_number = 1
@@ -31,22 +31,25 @@ class Airplane:
         if self.num_passengers < 0:
             raise ValueError("Passengers cannot be negative")
 
-    def build_layout(self):
+    def _build_layout(self):
         """
         Builds the layout of the flight from the input array by initializing
-        matrix with -1.
+        matrix with 0.
         """
         # Create a matrix from the nested array
         for arr in self.dims:
             cols, rows = arr
+            # Initialize the matrix with 0
+            matrix = [[0] * cols for _ in range(rows)]
+            self._layout.append(matrix)
 
-            # Initialize the matrix with -1
-            matrix = []
-            for _ in range(rows):
-                matrix.append([-1] * cols)
-            self.layout.append(matrix)
+    @property
+    def layout(self):
+        """Layout of the airplane."""
+        if not self._layout:
+            self._build_layout()
 
-        return self
+        return self._layout
 
     def assign_aisle_seats(self):
         """Assigns the aisle seats to the passengers."""
@@ -99,11 +102,11 @@ class Airplane:
 def main(input_array, input_passengers):
     """Function to run the program."""
     airplane = Airplane(input_array, input_passengers)
-    airplane.build_layout()
     airplane.assign_aisle_seats()
     airplane.assign_window_seats()
     airplane.assign_middle_seats()
     return airplane
+
 
 if __name__ == "__main__":
     input_array = [[3, 2], [4, 3], [2, 3], [3, 4]]
