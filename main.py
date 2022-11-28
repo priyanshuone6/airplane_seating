@@ -31,6 +31,28 @@ class Airplane:
         if self.num_passengers < 0:
             raise ValueError("Passengers cannot be negative")
 
+    def __str__(self):
+        """Pretty print the airport layout with passengers."""
+        # get the length of the biggest passenger number to properly indent everything
+        indent = len(str(self.num_passengers))
+        max_len = max(map(len, self.layout))
+        layout_heading = 'Airplane Layout'
+        seating_rows = [layout_heading, '=' * len(layout_heading)]
+        for row_idx in range(max_len):
+
+            row_str = []
+            for arr in self.layout:
+                if row_idx < len(arr):
+                    arr_row = [f'{num:<{indent}}' for num in arr[row_idx]]
+                else:
+                    arr_row = [' ' * indent for _ in range(len(arr[0]))]
+                row_str.append(' '.join(arr_row))
+
+            # Add 2 extra spaces between seat groups than the length of the biggest passenger num
+            seating_rows.append((' ' * (indent + 2)).join(row_str))
+
+        return '\n'.join(seating_rows)
+
     def _build_layout(self):
         """
         Builds the layout of the flight from the input array by initializing
