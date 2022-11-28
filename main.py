@@ -160,11 +160,10 @@ def main(input_array, input_passengers):
     """Function to run the program."""
     airplane = Airplane(input_array, input_passengers)
     airplane.fill()
-    return airplane
+    print(airplane)
 
 
 if __name__ == "__main__":
     input_array = [[3, 2], [4, 3], [2, 3], [3, 4]]
     input_passengers = 30
-
-    print(main(input_array, input_passengers))
+    main(input_array, input_passengers)
