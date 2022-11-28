@@ -31,6 +31,11 @@ class Airplane:
         if self.num_passengers < 0:
             raise ValueError("Passengers cannot be negative")
 
+        total_capacity = sum([dim[0] * dim[1] for dim in self.dims])
+        if self.num_passengers > total_capacity:
+            raise ValueError(f"Plane doesn't have enough seats for {self.num_passengers} passengers")
+
+
     def __str__(self):
         """Pretty print the airport layout with passengers."""
         # get the length of the biggest passenger number to properly indent everything
