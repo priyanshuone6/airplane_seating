@@ -13,15 +13,17 @@ class Airplane:
         # Initialize the seat number
         self.passengers_seated = 0
 
-        # Raise an error if the array or passengers is empty
-        if not self.dims:
-            raise ValueError("Array cannot be empty")
-        if not self.num_passengers:
-            raise ValueError("Passengers cannot be empty")
-
         # Raise an error if array is not a list
         if not isinstance(self.dims, list):
             raise TypeError("Given dimensions must be a list")
+
+        if len(self.dims) == 0:
+            raise ValueError("Airplane must have some seats")
+
+        # Raise an error if dims is not proper
+        for item in self.dims:
+            if not isinstance(item, list) or len(item) != 2:
+                raise ValueError(f"Expected dims to contain arrays of length 2, got '{item}'")
 
         # Raise an error if passengers is not an integer
         if not isinstance(self.num_passengers, int):
