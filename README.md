@@ -5,17 +5,18 @@ It helps seat audiences in a flight by seating passengers starting from the fron
 - Python 3.6 or higher
 
 ## How to run
+To run the program, run the following command in the terminal:
 ```bash
 python main.py
 ```
 
 ## How to run tests
-This project uses unittest for testing. To run the tests, run the following command:
+This project uses `unittest` for testing. To run the tests, run the following command in the terminal:
 ```bash
 python -m unittest
 ```
 
-## Example Input:
+## Example input:
 2D array = [[3,2], [4,3], [2,3], [3,4]]
 
 Total passengers = 30
