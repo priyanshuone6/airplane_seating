@@ -11,7 +11,7 @@ class Airplane:
         self._layout = []
 
         # Initialize the seat number
-        self.seat_number = 1
+        self.passengers_seated = 0
 
         # Raise an error if the array or passengers is empty
         if not self.dims:
@@ -35,10 +35,9 @@ class Airplane:
         """Pretty print the airport layout with passengers."""
         # get the length of the biggest passenger number to properly indent everything
         indent = len(str(self.num_passengers))
-        max_len = max(map(len, self.layout))
         layout_heading = 'Airplane Layout'
         seating_rows = [layout_heading, '=' * len(layout_heading)]
-        for row_idx in range(max_len):
+        for row_idx in range(self.max_rows):
 
             row_str = []
             for arr in self.layout:
@@ -73,53 +72,72 @@ class Airplane:
 
         return self._layout
 
+    @property
+    def max_rows(self):
+        """Maximum number of rows in any seating group."""
+        return max(map(len, self.layout))
+
+    def all_passengers_seated(self):
+        """Checks if all passengers have been seated."""
+        return self.passengers_seated >= self.num_passengers
+
+    def traverse(self):
+        """
+        A generator to traverse the airplane left to right.
+
+        This generator also makes sure we don't access a row in a seating group where it doesn't exist.
+        """
+        for row_num in range(self.max_rows):
+            for seat_group_num in range(len(self.layout)):
+                if row_num >= len(self.layout[seat_group_num]):
+                    continue
+                yield row_num, seat_group_num
+
     def assign_aisle_seats(self):
         """Assigns the aisle seats to the passengers."""
-        for i in range(len(self.layout)):
-            # Parse through the nested list
-            for j in range(len(self.layout[i])):
+        for row_num, seat_group_num in self.traverse():
+            seat_group = self.layout[seat_group_num]
+            # If not first seat group, put people on the first column
+            if seat_group_num != 0:
+                self.passengers_seated += 1
+                seat_group[row_num][0] = self.passengers_seated
+            if self.all_passengers_seated():
+                break
 
-                # Skip window seats
-                if not (i == 0 and i == 1):
-                    # Set first and last elements of sub list to a aisle seat
-                    self.layout[i][j][0] = self.seat_number
-                    self.seat_number += 1
-                    self.layout[i][j][-1] = self.seat_number
-                    self.seat_number += 1
-
-                    if self.seat_number == self.num_passengers:
-                        break
+            # If not last seat group, put people on the last column
+            if seat_group_num != len(self.layout) - 1:
+                self.passengers_seated += 1
+                seat_group[row_num][-1] = self.passengers_seated
+            if self.all_passengers_seated():
+                break
 
     def assign_window_seats(self):
         """Assigns the window seats to the passengers."""
-        for i in range(len(self.layout)):
-            # Parse through the nested list
-            for j in range(len(self.layout[i])):
+        for row_num, seat_group_num in self.traverse():
+            if self.all_passengers_seated():
+                break
 
-                # Set first and last element of the nested list to a window seat
-                if i == 0:
-                    self.layout[0][j][0] = self.seat_number
-                    self.seat_number += 1
-                if i == len(self.layout) - 1:
-                    self.layout[-1][j][-1] = self.seat_number
-                    self.seat_number += 1
+            seat_group = self.layout[seat_group_num]
 
-                if self.seat_number == self.num_passengers:
-                    break
+            if seat_group_num == 0:
+                self.passengers_seated += 1
+                seat_group[row_num][0] = self.passengers_seated
+                continue
+
+            if seat_group_num == len(self.layout) - 1:
+                self.passengers_seated += 1
+                seat_group[row_num][-1] = self.passengers_seated
+                continue
 
     def assign_middle_seats(self):
         """Assigns the middle seats to the passengers."""
-        for i in range(len(self.layout)):
-            # Parse through the nested list
-            for j in range(len(self.layout[i])):
-                # Set the elements between the index 0 and -1 to a middle seat
-                for k in range(1, len(self.layout[i][j]) - 1):
-                    self.layout[i][j][k] = self.seat_number
-                    self.seat_number += 1
-
-                    if self.seat_number == self.num_passengers:
-                        break
-
+        for row_num, seat_group_num in self.traverse():
+            seat_group = self.layout[seat_group_num]
+            cols, _ = self.dims[seat_group_num]
+            for col_num in range(1, cols - 1):
+                if not self.all_passengers_seated():
+                    self.passengers_seated += 1
+                    seat_group[row_num][col_num] = self.passengers_seated
 
 def main(input_array, input_passengers):
     """Function to run the program."""
