@@ -26,3 +26,14 @@ Total passengers = 30
 Following the rules, with 30 passengers, the seating output will be:
 
 ![airplane_seating_with_num](https://user-images.githubusercontent.com/64051212/204293610-17de9210-3ab5-4338-a3ec-64e0ae19e62e.jpg)
+
+### Test run
+```bash
+$ python main.py
+Airplane Layout
+===============
+19 25  1     2 26 27  3     4  5     6 28 20
+21 29  7     8 30  0  9    10 11    12  0 22
+            13  0  0 14    15 16    17  0 23
+                                    18  0 24
+```
